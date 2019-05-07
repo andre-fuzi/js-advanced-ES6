@@ -1,4 +1,4 @@
-class Negociacao {
+class Negotiation {
 
     constructor(date, quantity, value) {
 
