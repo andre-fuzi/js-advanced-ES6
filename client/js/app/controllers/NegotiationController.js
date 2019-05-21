@@ -11,12 +11,14 @@ class NegotiationController {
     add(ev) {
         ev.preventDefault();
 
-        let date = new Date(...this._inputDate.value.split('-').map((el, index) => parseInt(el) - index%2));
+        let date = DateHelper.textToDate(this._inputDate);
 
         let negotiation =  new Negotiation(date, this._inputQuantity.value, this._inputValue.value);
 
-        console.log(negotiation);
+        let dayMonthYear = DateHelper.dateToText(negotiation)
 
+        console.log(negotiation);
+        console.log(dayMonthYear);
         this._clearForm();
     }
 

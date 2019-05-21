@@ -11,7 +11,7 @@ class Negotiation {
         
     }
 
-    get data() {
+    get date() {
         return new Date(this._date.getTime());
     }
 
