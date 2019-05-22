@@ -6,20 +6,22 @@ class NegotiationController {
         this._inputDate = $('#data');
         this._inputQuantity = $('#quantidade');
         this._inputValue = $('#valor');
+        this._listNegotiations = new ListNegotiations();
     }
 
     add(ev) {
         ev.preventDefault();
 
-        let date = DateHelper.textToDate(this._inputDate);
+        this._listNegotiations.add(this._createNegotiation());
 
-        let negotiation =  new Negotiation(date, this._inputQuantity.value, this._inputValue.value);
+        // let dayMonthYear = DateHelper.dateToText(negotiation)
 
-        let dayMonthYear = DateHelper.dateToText(negotiation)
-
-        console.log(negotiation);
-        console.log(dayMonthYear);
+        console.log(this._listNegotiations.negotiations);
         this._clearForm();
+    }
+
+    _createNegotiation() {
+        return new Negotiation(DateHelper.textToDate(this._inputDate), this._inputQuantity.value, this._inputValue.value);
     }
 
     _clearForm() {
