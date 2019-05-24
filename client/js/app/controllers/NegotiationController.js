@@ -7,6 +7,9 @@ class NegotiationController {
         this._inputQuantity = $('#quantidade');
         this._inputValue = $('#valor');
         this._listNegotiations = new ListNegotiations();
+        this._negotiationViews = new NegotiationViews($('#negotiationsList'));
+
+        this._negotiationViews.update(this._listNegotiations);
     }
 
     add(ev) {
@@ -14,7 +17,7 @@ class NegotiationController {
 
         this._listNegotiations.add(this._createNegotiation());
 
-        // let dayMonthYear = DateHelper.dateToText(negotiation)
+        this._negotiationViews.update(this._listNegotiations);
 
         console.log(this._listNegotiations.negotiations);
         this._clearForm();
