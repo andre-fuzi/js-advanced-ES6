@@ -8,8 +8,11 @@ class NegotiationController {
         this._inputValue = $('#valor');
         this._listNegotiations = new ListNegotiations();
         this._negotiationViews = new NegotiationViews($('#negotiationsList'));
+        this._message =  new Message();
+        this._messageView = new MessageViews($('#messageNotification'));
 
         this._negotiationViews.update(this._listNegotiations);
+        this._messageView.update(this._message);
     }
 
     add(ev) {
@@ -18,8 +21,9 @@ class NegotiationController {
         this._listNegotiations.add(this._createNegotiation());
 
         this._negotiationViews.update(this._listNegotiations);
+        this._message.text = 'Negociação encaminhada com sucesso';
+        this._messageView.update(this._message);
 
-        console.log(this._listNegotiations.negotiations);
         this._clearForm();
     }
 
