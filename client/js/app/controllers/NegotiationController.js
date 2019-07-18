@@ -7,45 +7,22 @@ class NegotiationController {
         this._inputQuantity = $('#quantidade');
         this._inputValue = $('#valor');
 
-        var self = this;
-        this._listNegotiations = new Proxy(new ListNegotiations(), {
-            get(target, prop, receiver) {
+        this._listNegotiations = new Bind(new ListNegotiations(), new NegotiationViews($('#negotiationsList')), 'add', 'clean');
 
-                if(['add', 'clean'].includes(prop) && typeof(target[prop]) == typeof(Function)) {
-                    return function() {
-                        console.log(`interceptando ${prop}`);
-                        Reflect.apply(target[prop], target, arguments);
-                        self._negotiationViews.update(target);
-                    }
-                }
-                return Reflect.get(target, prop, receiver);
-            }
-        });
-
-        this._negotiationViews = new NegotiationViews($('#negotiationsList'));
-        this._message =  new Message();
-        this._messageView = new MessageViews($('#messageNotification'));
-
-        this._negotiationViews.update(this._listNegotiations);
-        this._messageView.update(this._message);
+        this._message =  new Bind(new Message(), new MessageViews($('#messageNotification')), 'text');
     }
 
     add(ev) {
         ev.preventDefault();
 
         this._listNegotiations.add(this._createNegotiation());
-
         this._message.text = 'Negociação encaminhada com sucesso';
-        this._messageView.update(this._message);
-
         this._clearForm();
     }
 
     delete() {
         this._listNegotiations.clean();
-
         this._message.text = 'Lista de Negociações apagadas com sucesso';
-        this._messageView.update(this._message);
     }
 
     _createNegotiation() {
