@@ -28,7 +28,7 @@ class NegotiationViews extends Views{
 
                     <tfoot> 
                         <td colspan="3"></td>
-                        <td>${model.negotiations.reduce((total, num) => total + num.volume, 0)}</td>
+                        <td>${model.totalValue}</td>
                     </tfoot>
                 </table>`
     }
