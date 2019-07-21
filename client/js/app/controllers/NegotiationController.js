@@ -25,6 +25,20 @@ class NegotiationController {
         this._message.text = 'Lista de Negociações apagadas com sucesso';
     }
 
+    import() {
+        let service = new NegotiationService();
+
+        service.getNegotiations((err, res) => {
+            if(err) {
+                this._message.text = err;
+                return;
+            }
+
+            res.forEach(negotiation => this._listNegotiations.add(negotiation));
+            this._message.text = "Negociações importadas com sucesso!";
+        })
+    }
+
     _createNegotiation() {
         return new Negotiation(DateHelper.textToDate(this._inputDate), this._inputQuantity.value, this._inputValue.value);
     }
