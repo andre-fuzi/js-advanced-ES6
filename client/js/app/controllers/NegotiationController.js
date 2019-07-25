@@ -28,15 +28,13 @@ class NegotiationController {
     import() {
         let service = new NegotiationService();
 
-        service.getNegotiations((err, res) => {
-            if(err) {
-                this._message.text = err;
-                return;
-            }
+        service.getAllNegotiations()
+            .then(negotiations => {
+                negotiations.forEach(el => this._listNegotiations.add(el));
+                this._message.text = "Negociações importadas com sucesso!"
+            })
+            .catch(err => this._message.text = err);
 
-            res.forEach(negotiation => this._listNegotiations.add(negotiation));
-            this._message.text = "Negociações importadas com sucesso!";
-        })
     }
 
     _createNegotiation() {
